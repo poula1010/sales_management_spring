@@ -3,6 +3,7 @@ package com.poula.sales_management.service.Implementations;
 import com.poula.sales_management.dto.LoginDto;
 import com.poula.sales_management.security.JwtTokenProvider;
 import com.poula.sales_management.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,12 @@ public class AuthServiceImpl implements AuthService {
     private PasswordEncoder passwordEncoder;
 
     private AuthenticationManager authenticationManager;
+    @Autowired
+    public AuthServiceImpl(JwtTokenProvider jwtTokenProvider,PasswordEncoder passwordEncoder,AuthenticationManager authenticationManager){
+        this.authenticationManager =authenticationManager;
+        this.passwordEncoder =passwordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
     @Override
     public String login(LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
