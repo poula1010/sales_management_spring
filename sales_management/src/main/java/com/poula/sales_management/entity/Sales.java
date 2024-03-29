@@ -1,9 +1,6 @@
 package com.poula.sales_management.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,7 +17,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table(name="sales")
 public class Sales {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "sale_id")
     private int id;
+
     private LocalDateTime creationTime;
 
     @OneToOne()
@@ -30,6 +32,8 @@ public class Sales {
     @JoinColumn(name = "client_id",referencedColumnName = "user_id")
     private User client;
 
-    private BigInteger total;
+    private double total;
 
+    @OneToMany(mappedBy = "sales")
+    private List<SaleDetail> saleDetailList;
 }

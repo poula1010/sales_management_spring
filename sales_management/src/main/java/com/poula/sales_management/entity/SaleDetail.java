@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigInteger;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,4 +28,10 @@ public class SaleDetail {
     @JoinColumn(name = "product_id",referencedColumnName = "product_id")
     private Product product;
 
+    @Column(name = "sub_total")
+    private double subTotal;
+
+    @ManyToOne
+    @JoinColumn(name = "sale_id",referencedColumnName = "sale_id")
+    private Sales sales;
 }
