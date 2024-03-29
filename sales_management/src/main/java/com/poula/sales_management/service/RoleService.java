@@ -1,6 +1,6 @@
-package com.poula.sales_management.Service;
+package com.poula.sales_management.service;
 
-import com.poula.sales_management.DTO.SuccessOrFailDto;
+import com.poula.sales_management.dto.SuccessOrFailDto;
 
 public interface RoleService {
     SuccessOrFailDto addRole(String roleName);

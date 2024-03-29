@@ -1,4 +1,4 @@
-package com.poula.sales_management.Entity;
+package com.poula.sales_management.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.poula.sales_management.Exception;
+package com.poula.sales_management.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

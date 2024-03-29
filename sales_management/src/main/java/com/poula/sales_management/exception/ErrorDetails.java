@@ -1,4 +1,4 @@
-package com.poula.sales_management.Exception;
+package com.poula.sales_management.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

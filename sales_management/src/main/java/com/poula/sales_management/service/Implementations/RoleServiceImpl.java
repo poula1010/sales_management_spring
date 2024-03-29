@@ -1,17 +1,15 @@
-package com.poula.sales_management.Service.Implementations;
+package com.poula.sales_management.service.Implementations;
 
-import com.poula.sales_management.DTO.SuccessOrFailDto;
-import com.poula.sales_management.Entity.Role;
-import com.poula.sales_management.Exception.APIException;
-import com.poula.sales_management.Repository.RoleRepository;
-import com.poula.sales_management.Service.RoleService;
+import com.poula.sales_management.dto.SuccessOrFailDto;
+import com.poula.sales_management.entity.Role;
+import com.poula.sales_management.exception.APIException;
+import com.poula.sales_management.repository.RoleRepository;
+import com.poula.sales_management.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.io.Console;
 
 @Service
 public class RoleServiceImpl implements RoleService {

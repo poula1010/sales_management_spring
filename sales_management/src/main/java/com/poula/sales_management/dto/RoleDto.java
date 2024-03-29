@@ -1,4 +1,4 @@
-package com.poula.sales_management.DTO;
+package com.poula.sales_management.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

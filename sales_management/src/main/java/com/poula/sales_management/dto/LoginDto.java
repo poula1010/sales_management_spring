@@ -1,15 +1,15 @@
-package com.poula.sales_management.DTO;
+package com.poula.sales_management.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SuccessOrFailDto {
-    private boolean hasSucceeded;
-    private String message;
+@Getter
+@Setter
+public class LoginDto {
+    private String usernameOrEmail;
+    private String password;
 }

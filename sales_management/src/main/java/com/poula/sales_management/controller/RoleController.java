@@ -1,13 +1,12 @@
-package com.poula.sales_management.Controller;
+package com.poula.sales_management.controller;
 
-import com.poula.sales_management.DTO.RoleDto;
-import com.poula.sales_management.DTO.SuccessOrFailDto;
+import com.poula.sales_management.dto.RoleDto;
+import com.poula.sales_management.dto.SuccessOrFailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.poula.sales_management.Service.RoleService;
+import com.poula.sales_management.service.RoleService;
 @RestController
 @RequestMapping("/role")
 public class RoleController {

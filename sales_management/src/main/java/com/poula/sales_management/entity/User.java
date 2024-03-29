@@ -1,4 +1,4 @@
-package com.poula.sales_management.Entity;
+package com.poula.sales_management.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,11 +21,32 @@ public class User {
     @Column(name = "user_id")
     private int id;
 
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false ,unique = true)
+    private String email;
+
+    @Column(nullable = false,unique = true)
+    private String username;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name="last_name")
+    private String lastName;
+
+    @Column(name= "phone",nullable = false)
+    private String phone;
+
+    @Column(name = "address")
+    private String address;
+
     @OneToMany
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id" ,referencedColumnName = "role_id")
     )
-    private Set<Role> roleList;
+    private Set<Role> roleSet;
 }
