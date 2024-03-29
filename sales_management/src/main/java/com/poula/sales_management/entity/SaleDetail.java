@@ -24,6 +24,8 @@ public class SaleDetail {
     @Column(name="quantity")
     private int quantity;
 
+    @Column(name="price_at_sale")
+    private double priceAtSaleTime;
     @OneToOne
     @JoinColumn(name = "product_id",referencedColumnName = "product_id")
     private Product product;
