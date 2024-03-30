@@ -36,6 +36,7 @@ public class Product {
     @Column(name = "price")
     private double price;
 
+
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
 }

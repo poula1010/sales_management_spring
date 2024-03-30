@@ -11,6 +11,7 @@ import com.poula.sales_management.service.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -66,6 +67,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public SuccessOrFailDto addProduct(ProductDto productDto) {
         Product product = ProductDto.toProduct(productDto);
+
         try{
             if(productRepository.findProductByName(productDto.getName()).isEmpty()){
                 productRepository.save(product);

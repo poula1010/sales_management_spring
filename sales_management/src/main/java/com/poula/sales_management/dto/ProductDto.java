@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -35,10 +37,13 @@ public class ProductDto {
 
     public static Product toProduct(ProductDto productDto){
         Product product = new Product();
+        LocalDateTime creationTime =  LocalDateTime.now();
+        product.setCreationDate(creationTime);
         product.setName(productDto.getName());
         product.setCategory(productDto.getCategory());
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
+        product.setAvailableQuantity(productDto.getQuantity());
         return product;
     }
 }

@@ -26,7 +26,7 @@ public class SaleDetail {
 
     @Column(name="price_at_sale")
     private double priceAtSaleTime;
-    @OneToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
     @JoinColumn(name = "product_id",referencedColumnName = "product_id")
     private Product product;
 
@@ -34,6 +34,10 @@ public class SaleDetail {
     private double subTotal;
 
     @ManyToOne
-    @JoinColumn(name = "sale_id",referencedColumnName = "sale_id")
+    @JoinColumn(name = "sale_id")
     private Sales sales;
+
+    public double calculateSubTotal(){
+        return this.quantity * this.priceAtSaleTime;
+    }
 }

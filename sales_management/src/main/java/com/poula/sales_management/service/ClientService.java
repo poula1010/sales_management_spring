@@ -15,4 +15,6 @@ public interface ClientService {
     SuccessOrFailDto deleteClientById(int id);
 
     ClientDetailDto updateClientDetails(ClientDetailDto clientDetailDto);
+
+    ClientDetailDto getClientById(int id);
 }

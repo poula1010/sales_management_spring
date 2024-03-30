@@ -24,16 +24,24 @@ public class Sales {
 
     private LocalDateTime creationTime;
 
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "seller_id",referencedColumnName = "user_id")
     private User seller;
 
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "client_id",referencedColumnName = "user_id")
     private User client;
 
     private double total;
 
-    @OneToMany(mappedBy = "sales")
+    @OneToMany(mappedBy = "sales",cascade = CascadeType.ALL)
     private List<SaleDetail> saleDetailList;
+
+    public void calculateTotal(){
+        double total = 0.0;
+        for(SaleDetail saleDetail : saleDetailList){
+            total+= saleDetail.getSubTotal();
+        }
+        this.total =total;
+    }
 }

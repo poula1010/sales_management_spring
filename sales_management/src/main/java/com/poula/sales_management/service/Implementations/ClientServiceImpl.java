@@ -103,7 +103,21 @@ public class ClientServiceImpl implements ClientService {
             throw new APIException(HttpStatus.BAD_REQUEST,"This client doesn't exist");
         }
         catch (Exception e){
-            throw new APIException(HttpStatus.BAD_REQUEST,"An Error has occured");
+            throw new APIException(HttpStatus.BAD_REQUEST,"An Error has occurred");
+        }
+    }
+
+    @Override
+    public ClientDetailDto getClientById(int id) {
+        try{
+            User client = userRepository.findById(id).orElseThrow();
+            return ClientDetailDto.toClientDetailDto(client);
+        }
+        catch(NoSuchElementException e){
+            throw new APIException(HttpStatus.BAD_REQUEST,"This client doesn't exist");
+        }
+        catch (Exception e){
+            throw new APIException(HttpStatus.BAD_REQUEST,"An Error has occurred");
         }
     }
 }
