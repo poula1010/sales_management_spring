@@ -1,6 +1,8 @@
 package com.poula.sales_management.dto;
 
 import com.poula.sales_management.entity.Product;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,14 +17,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ProductDto {
     private int id;
+    @NotBlank
     private String name;
 
     private String description;
 
     private String category;
 
+    @Positive
     private Integer quantity;
-
+    @Positive
     private double price;
 
     public static ProductDto toProductDto(Product product){
