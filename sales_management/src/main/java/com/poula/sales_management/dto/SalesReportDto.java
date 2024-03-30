@@ -12,5 +12,5 @@ public class SalesReportDto {
     private int totalNumberOfSales;
     private double totalRevenue;
     private List<ProductDto> topSellingProduct;
-    private List<User> topPerformingSellers;
+    private List<TopSellerDto> topPerformingSellers;
 }

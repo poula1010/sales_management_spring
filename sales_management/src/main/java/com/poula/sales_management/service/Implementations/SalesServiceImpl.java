@@ -12,6 +12,8 @@ import com.poula.sales_management.repository.SalesRepository;
 import com.poula.sales_management.repository.UserRepository;
 import com.poula.sales_management.service.SalesService;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -24,14 +26,14 @@ import java.util.stream.Collectors;
 public class SalesServiceImpl implements SalesService {
     private SalesRepository salesRepository;
     private UserRepository userRepository;
-
+    private Logger logger;
     private ProductRepository productRepository;
     @Autowired
     public SalesServiceImpl(SalesRepository salesRepository, UserRepository userRepository,ProductRepository productRepository){
         this.salesRepository = salesRepository;
         this.userRepository = userRepository;
         this.productRepository = productRepository;
-
+        this.logger = LoggerFactory.getLogger(SalesService.class);
     }
     @Override
     @Transactional
@@ -70,6 +72,7 @@ public class SalesServiceImpl implements SalesService {
             });
             newSale.setSaleDetailList(saleDetailList);
             newSale.calculateTotal();
+            logger.info("A new sale has been added, ClientId: "+saleDto.getClientId()+" SellerId: " + saleDto.getSellerId());
             return SalesPreviewDto.toSalesPreviewDto(salesRepository.save(newSale));
         }
         catch (APIException e){
@@ -104,6 +107,7 @@ public class SalesServiceImpl implements SalesService {
                 saleDetail.calculateSubTotal();
             });
             sale.calculateTotal();
+            logger.info("the sale with id : " + sale.getId() +" has been updated");
             return SalesPreviewDto.toSalesPreviewDto(salesRepository.save(sale));
 
         }

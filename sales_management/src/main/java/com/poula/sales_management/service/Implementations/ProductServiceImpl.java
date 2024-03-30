@@ -1,27 +1,31 @@
 package com.poula.sales_management.service.Implementations;
 
-import com.poula.sales_management.dto.ClientDetailDto;
+
 import com.poula.sales_management.dto.ProductDto;
 import com.poula.sales_management.dto.SuccessOrFailDto;
 import com.poula.sales_management.entity.Product;
-import com.poula.sales_management.entity.User;
+
 import com.poula.sales_management.exception.APIException;
 import com.poula.sales_management.repository.ProductRepository;
 import com.poula.sales_management.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.NoSuchElementException;
+
 import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
-
+    private Logger logger;
     public ProductServiceImpl(ProductRepository productRepository){
         this.productRepository = productRepository;
+        logger = LoggerFactory.getLogger(ProductService.class);
     }
     @Override
     public List<ProductDto> getProducts() {
@@ -34,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
         try{
             Product product = productRepository.findById(id).orElseThrow(NoSuchElementException::new);
             productRepository.delete(product);
+            logger.info("product: " + product.getName() + " with id: " + id + "has been deleted");
             return new SuccessOrFailDto(true,"Product deleted Successfully");
         }
         catch (NoSuchElementException e){
@@ -54,6 +59,7 @@ public class ProductServiceImpl implements ProductService {
             product.setPrice(product.getPrice());
             product.setAvailableQuantity(productDto.getQuantity());
             Product updatedProduct = productRepository.save(product);
+            logger.info("product: " + product.getName() + " with id: " + product.getId() + "has been updated");
             return ProductDto.toProductDto(updatedProduct);
         }
         catch(NoSuchElementException e){
@@ -71,6 +77,7 @@ public class ProductServiceImpl implements ProductService {
         try{
             if(productRepository.findProductByName(productDto.getName()).isEmpty()){
                 productRepository.save(product);
+                logger.info("product: " + product.getName() + " with id: " + product.getId() + "has been added");
                 return new SuccessOrFailDto(true,"product Saved Successfully");
             }
             else{

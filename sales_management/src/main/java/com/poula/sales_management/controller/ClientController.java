@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @PreAuthorize("permitAll()")
-@RequestMapping("/user")
+@RequestMapping("/client")
 public class ClientController {
     private ClientService clientService;
     @Autowired

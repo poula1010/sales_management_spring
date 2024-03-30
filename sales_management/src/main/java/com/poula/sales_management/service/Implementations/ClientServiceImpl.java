@@ -9,6 +9,9 @@ import com.poula.sales_management.exception.APIException;
 import com.poula.sales_management.repository.RoleRepository;
 import com.poula.sales_management.repository.UserRepository;
 import com.poula.sales_management.service.ClientService;
+import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,15 +27,17 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
-
+    private Logger logger;
     private PasswordEncoder passwordEncoder;
     @Autowired
     public ClientServiceImpl(UserRepository userRepository,RoleRepository roleRepository,PasswordEncoder passwordEncoder){
         this.userRepository=userRepository;
         this.roleRepository=roleRepository;
         this.passwordEncoder=passwordEncoder;
+        this.logger = LoggerFactory.getLogger(ClientService.class);
     }
     @Override
+    @Transactional
     public SuccessOrFailDto addNewClient(ClientRegisterDto clientRegisterDto) {
         try{
             User user = new User();
@@ -49,6 +54,7 @@ public class ClientServiceImpl implements ClientService {
 
             user.setRoleSet(roleSet);
             userRepository.save(user);
+            logger.info("a new client has been added, clientName: " + clientRegisterDto.getFirstName());
             return new SuccessOrFailDto(true,"Successful registration");
         }
         catch(Exception e){
@@ -72,7 +78,9 @@ public class ClientServiceImpl implements ClientService {
             User client = userRepository.findById(id).orElseThrow();
             Role clientRole = roleRepository.findRoleByName("ROLE_CLIENT");
             if(client.getRoleSet().contains(clientRole)) {
+                logger.info("client with id: "+ id +" clientName: "+client.getFirstName() + " has been deleted");
                 userRepository.delete(client);
+
                 return new SuccessOrFailDto(true, "Client deleted successfully");
             }
             else{
@@ -88,6 +96,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    @Transactional
     public ClientDetailDto updateClientDetails(ClientDetailDto clientDetailDto) {
         try{
             User client = userRepository.findById(clientDetailDto.getId()).orElseThrow();
@@ -97,6 +106,7 @@ public class ClientServiceImpl implements ClientService {
             client.setFirstName(clientDetailDto.getFirstName());
             client.setLastName(clientDetailDto.getLastName());
             User updatedClient = userRepository.save(client);
+            logger.info("client with id: "+ client.getId() +" clientName: "+client.getFirstName() + " has been updated");
             return ClientDetailDto.toClientDetailDto(updatedClient);
         }
         catch(NoSuchElementException e){

@@ -6,8 +6,8 @@ import java.util.List;
 @Data
 public class ClientReportDto {
     private int numberOfClients;
-    private List<ClientReportDto> topSpendingClients;
+    private List<ClientDetailDto> topSpendingClients;
 
-    private int clientActivity;
+    private List<ClientActivityDto> clientActivity;
     private List<LocationDto> locationStatistics;
 }
